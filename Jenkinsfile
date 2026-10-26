@@ -5,6 +5,7 @@ pipeline {
         APP_NAME     = "amazon-clone"
         IMAGE_TAG    = "latest"
         K8S_DIR      = "k8s"
+        KUBECONFIG   = "C:\\ProgramData\\Jenkins\\.jenkins\\.kube\\config"
     }
 
     stages {
@@ -44,17 +45,17 @@ pipeline {
         stage('5. Deploy to Kubernetes') {
             steps {
                 echo 'Applying Kubernetes Deployment and Service manifests...'
-                bat "kubectl apply -f ${K8S_DIR}/deployment.yaml"
-                bat "kubectl apply -f ${K8S_DIR}/service.yaml"
+                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" apply -f ${K8S_DIR}/deployment.yaml"
+                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" apply -f ${K8S_DIR}/service.yaml"
             }
         }
 
         stage('6. Verify K8s Rollout & Scaling') {
             steps {
                 echo 'Verifying Kubernetes Pod status and rollout...'
-                bat "kubectl rollout status deployment/amazon-clone-deployment"
-                bat "kubectl get pods -l app=amazon-clone"
-                bat "kubectl get svc amazon-clone-service"
+                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" rollout status deployment/amazon-clone-deployment"
+                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" get pods -l app=amazon-clone"
+                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" get svc amazon-clone-service"
             }
         }
     }
