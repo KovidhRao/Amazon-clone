@@ -82,11 +82,11 @@ amazo clone/
    ```powershell
    docker build -t amazon-clone:latest .
    ```
-3. Run the container locally:
+3. Run the container locally (using port **8085** to avoid collision with port 8080):
    ```powershell
-   docker run -d -p 8080:80 --name my-amazon-app amazon-clone:latest
+   docker run -d -p 8085:80 --name my-amazon-app amazon-clone:latest
    ```
-4. Test in browser: [http://localhost:8080](http://localhost:8080)
+4. Test in browser: [http://localhost:8085](http://localhost:8085)
 5. Stop container:
    ```powershell
    docker stop my-amazon-app
@@ -121,8 +121,12 @@ amazo clone/
 ---
 
 ### STEP 4: Automated CI/CD with Jenkins
-1. Open Jenkins at [http://localhost:8080](http://localhost:8080).
-2. Click **New Item** > Enter **`amazon-clone-pipeline`** > Select **Pipeline** > Click **OK**.
+1. If running Jenkins in Docker, bind host port **9090** (avoids conflicting with your existing 8080):
+   ```powershell
+   docker run -d -p 9090:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts
+   ```
+2. Open Jenkins in your browser at [http://localhost:9090](http://localhost:9090).
+3. Click **New Item** > Enter **`amazon-clone-pipeline`** > Select **Pipeline** > Click **OK**.
 3. Under **Pipeline Definition**, select **Pipeline script from SCM**:
    - SCM: **Git**
    - Repository URL: `https://github.com/<your-username>/amazon-clone.git`
