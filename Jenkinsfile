@@ -32,11 +32,12 @@ pipeline {
         stage('4. Test Container Locally') {
             steps {
                 echo 'Testing Docker container execution...'
+                // Remove any previous leftover test container before starting
+                bat "docker rm -f test-${APP_NAME} 2>nul || ver >nul"
                 bat "docker run -d --name test-${APP_NAME} -p 8085:80 ${APP_NAME}:${IMAGE_TAG}"
-                // Wait 5 seconds and check container status
-                bat "powershell -Command \"Start-Sleep -Seconds 5; Invoke-WebRequest -Uri 'http://localhost:8085' -UseBasicParsing\""
-                bat "docker stop test-${APP_NAME}"
-                bat "docker rm test-${APP_NAME}"
+                // Wait 3 seconds and check container HTTP status
+                bat "powershell -Command \"Start-Sleep -Seconds 3; Invoke-WebRequest -Uri 'http://localhost:8085' -UseBasicParsing\""
+                bat "docker rm -f test-${APP_NAME}"
             }
         }
 
