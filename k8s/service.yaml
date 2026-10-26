@@ -5,13 +5,12 @@ metadata:
   labels:
     app: amazon-clone
 spec:
-  # NodePort allows accessing the app via localhost:<nodePort> in Docker Desktop Kubernetes
-  type: NodePort
+  # LoadBalancer in Docker Desktop automatically forwards to localhost
+  type: LoadBalancer
   selector:
     app: amazon-clone
   ports:
-  - port: 80
+  - port: 8086
     targetPort: 80
-    nodePort: 30080
     protocol: TCP
     name: http
