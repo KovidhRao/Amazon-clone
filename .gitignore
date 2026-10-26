@@ -1,0 +1,12 @@
+# OS and IDE files
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Scratch & temporary files
+q1.html
+q1_files/
+embed_css.js
+node_modules/

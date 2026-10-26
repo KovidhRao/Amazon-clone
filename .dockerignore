@@ -1,0 +1,11 @@
+.git
+.gitignore
+Dockerfile
+.dockerignore
+k8s/
+Jenkinsfile
+README.md
+q1.html
+q1_files/
+embed_css.js
+*.log

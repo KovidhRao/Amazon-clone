@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amazon-clone-deployment
+  labels:
+    app: amazon-clone
+spec:
+  # Desired number of pod replicas for high availability & self-healing
+  replicas: 3
+  selector:
+    matchLabels:
+      app: amazon-clone
+  template:
+    metadata:
+      labels:
+        app: amazon-clone
+    spec:
+      containers:
+      - name: amazon-clone
+        image: amazon-clone:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10

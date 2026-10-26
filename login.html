@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Sign-In</title>
+    <link rel="stylesheet" href="login.css">
+    <style id="embeddedLoginStyles">
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --amz-dark: #131921;
+    --amz-btn-gold: #ffd814;
+    --amz-btn-gold-hover: #f7ca00;
+    --amz-border: #d5d9d9;
+    --amz-border-focus: #e77600;
+    --amz-link: #0066c0;
+    --amz-link-hover: #c45500;
+    --amz-text: #0f1111;
+    --amz-text-muted: #565959;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body.login-body {
+    background-color: #ffffff;
+    color: var(--amz-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-page-wrap {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-logo-link {
+    text-decoration: none;
+    margin-bottom: 18px;
+    display: inline-block;
+}
+
+.login-brand-text {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #111111;
+}
+
+.login-brand-text span {
+    color: #ff9900;
+}
+
+.login-card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid var(--amz-border);
+    border-radius: 8px;
+    padding: 26px 26px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.login-heading {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    color: var(--amz-text);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--amz-text);
+}
+
+.form-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.forgot-link {
+    font-size: 12px;
+    color: var(--amz-link);
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    color: var(--amz-link-hover);
+    text-decoration: underline;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    width: 100%;
+    height: 34px;
+    padding: 4px 10px;
+    border: 1px solid #888c8c;
+    border-radius: 4px;
+    font-size: 13.5px;
+    outline: none;
+    transition: all 0.15s ease;
+}
+
+.form-input:focus {
+    border-color: var(--amz-border-focus);
+    box-shadow: 0 0 0 3px rgba(228, 121, 17, 0.5);
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.login-submit-btn {
+    width: 100%;
+    height: 34px;
+    background: var(--amz-btn-gold);
+    border: 1px solid #fcd200;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+    margin-top: 4px;
+    transition: background-color 0.2s;
+}
+
+.login-submit-btn:hover {
+    background: var(--amz-btn-gold-hover);
+}
+
+.terms-text {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--amz-text);
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.terms-text a {
+    color: var(--amz-link);
+    text-decoration: none;
+}
+
+.terms-text a:hover {
+    color: var(--amz-link-hover);
+    text-decoration: underline;
+}
+
+.need-help-accordion {
+    font-size: 13px;
+    color: var(--amz-link);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+}
+
+.need-help-dropdown {
+    display: none;
+    margin-top: 8px;
+    padding-left: 14px;
+    font-size: 12.5px;
+}
+
+.need-help-dropdown a {
+    display: block;
+    color: var(--amz-link);
+    text-decoration: none;
+    margin-bottom: 4px;
+}
+
+.new-to-amz-divider {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin: 22px 0 14px 0;
+}
+
+.new-to-amz-divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e7e7e7;
+    z-index: 1;
+}
+
+.new-to-amz-divider span {
+    position: relative;
+    background: #ffffff;
+    padding: 0 8px;
+    font-size: 12px;
+    color: var(--amz-text-muted);
+    z-index: 2;
+}
+
+.btn-create-account {
+    display: block;
+    width: 100%;
+    height: 34px;
+    line-height: 32px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--amz-text);
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.15s;
+}
+
+.btn-create-account:hover {
+    background: #f7faea;
+    border-color: #d0d7d9;
+}
+
+.login-footer {
+    width: 100%;
+    border-top: 1px solid #e7e7e7;
+    margin-top: auto;
+    padding: 24px 0;
+    text-align: center;
+    background: linear-gradient(to bottom, #ffffff, #fafafa);
+}
+
+.login-footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 12px;
+}
+
+.login-footer-links a {
+    font-size: 11.5px;
+    color: var(--amz-link);
+    text-decoration: none;
+}
+
+.login-copyright {
+    font-size: 11px;
+    color: var(--amz-text-muted);
+}
+    </style>
+    <link rel="icon" type="image/x-icon" href="amalogo.jpg">
+</head>
+<body class="login-body">
+
+    <div class="login-page-wrap">
+        <!-- Amazon Logo Header -->
+        <a href="amazon.html" class="login-logo-link" title="Return to Amazon Home">
+            <span class="login-brand-text">amazon<span>.in</span></span>
+        </a>
+
+        <!-- Sign-In Card -->
+        <div class="login-card">
+            <h1 class="login-heading">Sign in</h1>
+
+            <form id="loginForm" autocomplete="on">
+                <!-- Username / Email -->
+                <div class="form-group">
+                    <label class="form-label" for="userIdentifier">Email or mobile phone number</label>
+                    <input type="text" id="userIdentifier" class="form-input" required autofocus placeholder="e.g. kovid@example.com">
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label class="form-label" for="passwordInput" style="margin-bottom:0;">Password</label>
+                        <a href="#" class="forgot-link" id="forgotPassLink">Forgot Password</a>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="password" id="passwordInput" class="form-input" required placeholder="Enter password">
+                        <button type="button" class="toggle-password-btn" id="togglePasswordBtn">Show</button>
+                    </div>
+                </div>
+
+                <!-- Sign-In Button -->
+                <button type="submit" class="login-submit-btn" id="loginSubmitBtn">Sign in</button>
+
+                <!-- Terms Notice -->
+                <p class="terms-text">
+                    By continuing, you agree to Amazon's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.
+                </p>
+
+                <!-- Help Accordion -->
+                <a href="#" class="need-help-accordion" id="needHelpBtn">
+                    <span id="accordionArrow">&#9656;</span> Need help?
+                </a>
+                <div class="need-help-dropdown" id="needHelpDropdown">
+                    <a href="#">Forgot Password</a>
+                    <a href="#">Other issues with Sign-In</a>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- New to Amazon Section -->
+        <div class="new-to-amz-divider">
+            <span>New to Amazon?</span>
+        </div>
+        <a href="#" id="createAccountBtn" class="btn-create-account">Create your Amazon account</a>
+    </div>
+
+    <!-- Login Footer -->
+    <footer class="login-footer">
+        <div class="login-footer-links">
+            <a href="#">Conditions of Use</a>
+            <a href="#">Privacy Notice</a>
+            <a href="#">Help</a>
+        </div>
+        <p class="login-copyright">© 1996-2026, Amazon.com, Inc. or its affiliates</p>
+    </footer>
+
+    <script>
+        // Password Visibility Toggle
+        const toggleBtn = document.getElementById('togglePasswordBtn');
+        const passInput = document.getElementById('passwordInput');
+        toggleBtn.addEventListener('click', () => {
+            const isPass = passInput.getAttribute('type') === 'password';
+            passInput.setAttribute('type', isPass ? 'text' : 'password');
+            toggleBtn.textContent = isPass ? 'Hide' : 'Show';
+        });
+
+        // Need Help Accordion
+        const helpBtn = document.getElementById('needHelpBtn');
+        const helpDropdown = document.getElementById('needHelpDropdown');
+        const helpArrow = document.getElementById('accordionArrow');
+        helpBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isHidden = helpDropdown.style.display !== 'block';
+            helpDropdown.style.display = isHidden ? 'block' : 'none';
+            helpArrow.innerHTML = isHidden ? '&#9662;' : '&#9656;';
+        });
+
+        // Login Handler
+        const form = document.getElementById('loginForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const identifier = document.getElementById('userIdentifier').value.trim();
+            const password = passInput.value.trim();
+
+            if (!identifier) return;
+
+            // Extract display name
+            let displayName = identifier;
+            if (identifier.includes('@')) {
+                const parts = identifier.split('@')[0];
+                displayName = parts.charAt(0).toUpperCase() + parts.slice(1);
+            }
+
+            const userData = {
+                name: displayName,
+                email: identifier,
+                loginTime: new Date().toISOString()
+            };
+
+            try {
+                localStorage.setItem('amazon_user', JSON.stringify(userData));
+            } catch (err) {}
+
+            const submitBtn = document.getElementById('loginSubmitBtn');
+            submitBtn.textContent = 'Signing in...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                window.location.href = 'amazon.html';
+            }, 500);
+        });
+
+        // Create Account Quick Fill
+        document.getElementById('createAccountBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            const name = prompt('Enter your name to create account:', 'Kovid');
+            if (name) {
+                const userData = {
+                    name: name,
+                    email: name.toLowerCase().replace(/\s+/g, '') + '@amazon.com',
+                    loginTime: new Date().toISOString()
+                };
+                localStorage.setItem('amazon_user', JSON.stringify(userData));
+                window.location.href = 'amazon.html';
+            }
+        });
+    </script>
+</body>
+</html>
