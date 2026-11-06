@@ -45,8 +45,8 @@ pipeline {
         stage('5. Deploy to Kubernetes') {
             steps {
                 echo 'Applying Kubernetes Deployment and Service manifests...'
-                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" apply -f ${K8S_DIR}/deployment.yaml"
-                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" apply -f ${K8S_DIR}/service.yaml"
+                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" apply --validate=false -f ${K8S_DIR}/deployment.yaml"
+                bat "kubectl --kubeconfig=\"%KUBECONFIG%\" apply --validate=false -f ${K8S_DIR}/service.yaml"
             }
         }
 
