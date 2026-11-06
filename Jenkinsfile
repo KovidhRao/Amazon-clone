@@ -5,7 +5,7 @@ pipeline {
         APP_NAME     = "amazon-clone"
         IMAGE_TAG    = "latest"
         K8S_DIR      = "k8s"
-        KUBECONFIG   = "C:\\ProgramData\\Jenkins\\.jenkins\\.kube\\config"
+        KUBECONFIG   = "C:\\Users\\kovid\\.kube\\config"
     }
 
     stages {
